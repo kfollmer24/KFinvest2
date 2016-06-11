@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stock Performance v. S&amp;P500</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Stock Performance v. S&amp;P500">
+  <meta name="author" content="KFollmer">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Stock Performance v. S&amp;P500</h1>
+    <h2>The beginnings of a portfolio analysis tool</h2>
+    <p>KFollmer<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>The Purpose</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The motivation for this Shiny app is to be able to compare how my personal stock portfolio compares against the S&amp;P500. I use the application Robinhood, and don&#39;t understand why I can&#39;t compare my all time portfolio perforamnce. The only available option is the last year.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>How to Use</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Type in a stock ticker of interest <em>(ex. &#39;GOOG&#39;, &#39;JNJ&#39;, &#39;CMG&#39;, &#39;V&#39;)</em></li>
+<li>Optional: Adjust start and end date to timerange of interest</li>
+<li>Press &#39;Add to Portfolio&#39; to update the graph</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Calculations Used</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>There are not very advanced calculations in this app at this time.</p>
+
+<ol>
+<li>Price Adjustment - to get cumulative returns, we divide the price by the starting price to understand the change</li>
+</ol>
+
+<pre><code class="r">library(quantmod)
+library(data.table)
+from.dat &lt;- as.Date(&quot;01-01-08&quot;, format = &quot;%m-%d-%y&quot;)
+to.dat &lt;- Sys.Date()
+getSymbols(&quot;SPY&quot;, from = from.dat, to = to.dat)
+# By monthly detail only
+mspy &lt;- to.monthly(SPY)
+# Closing prices only
+cspy &lt;- Cl(mspy)
+# As numeric so that we get cumulative returns
+dspy &lt;- as.numeric(cspy[1])
+spy &lt;-cspy/dspy
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Future Improvements</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Ideas for improvement:</p>
+
+<ol>
+<li>When stocks are added they are cumulatively stored, and also a portfolio value is calculated.</li>
+<li>Give the user the ability to select which index they are comparing to.</li>
+<li>Give the user the ability to toggle between individal stocks in the portfolio or the portfolio created as a whole</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Reference</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>I very closely followed the tutotial found <a href="http://blog.revolutionanalytics.com/2014/01/quantitative-finance-applications-in-r-plotting-xts-time-series.html">here</a> to make my graphic </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='The Purpose'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='How to Use'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Calculations Used'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Future Improvements'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Reference'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='NA'>
+         6
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
